@@ -1,0 +1,41 @@
+<h1>Account Details</h1>
+<form [formGroup]="volunterForm" (ngSubmit)="onSubmit()">
+    <h2>Personal Information</h2>
+    <label>
+        First Name:
+        <input formControlName="name" type="text" placeholder="required">
+    </label>
+    <label>
+        Phone Number:
+        <input formControlName="phoneNumber" type="text" placeholder="required">
+    </label>
+    <label>Select preffered Location</label>
+    <select formControlName="preferredLocation" (change)="selectLocation($event)">
+         <br>
+        <option *ngFor="let loc of locations" [ngValue]="loc">{{loc}}</option>
+    </select>
+    <h2>Please select any</h2>
+    <div formGroupName="animals" class="grouping">
+        <label>Checking
+            <input  formControlName="checking" type="checkbox">
+        </label>
+        <label>Saving
+            <input formControlName="saving" type="checkbox">
+        </label>
+        <label>Joint
+            <input formControlName="joint" type="checkbox">
+        </label>
+    </div>
+    <h2>Reference(s)</h2>
+    <div formArrayName="references" 
+    *ngFor="let ref of references.controls; let i=index" 
+    class="grouping">
+        <label>
+            Reference Email:
+            <input [formControlName]="i" type="text" placeholder="optional">
+            <button type="button" (click)="removeEmail(i)" id="remove_email">x</button>
+        </label>
+    </div>
+    <button type="button" (click)="addEmail()">Add Another refrerence</button>
+    <button id="apply_button">Apply</button>
+  </form>
